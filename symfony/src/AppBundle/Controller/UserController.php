@@ -13,7 +13,7 @@ use BackendBundle\Entity\User;
 
 class UserController extends Controller{
 
-	public function newAction(Request $request){
+	public function registerAction(Request $request){
 		$helpers = $this->get(Helpers::class);
 
 		$json = $request->get("json", null);

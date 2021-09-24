@@ -1,8 +1,8 @@
-<div class="col-md-12">
-	<h1>{{title}}</h1>
+<div class="col-md-12" style="text-align: center;">
+	<h1 >{{title}}</h1>
 
 	<div *ngIf="!identity || identity == null">
-		Login to see more options...
+		<img id="logo-home" src="./assets/img/home-taches.png" height="400px">
 	</div>
 
 	<div class="col-md-12" *ngIf="identity && identity.sub">
@@ -46,9 +46,9 @@
 			<table class="table table-hover table-stripped" id="tasks-list" *ngIf="tasks && tasks.length >= 1">
 
 				<tr>
-					<th>Estado</th>
-					<th>Titulo</th>
-					<th>Accion</th>
+					<th>Status</th>
+					<th>Title</th>
+					<th>Action</th>
 				</tr>
 				<tr *ngFor="let task of tasks" class="task-item">
 					<td>

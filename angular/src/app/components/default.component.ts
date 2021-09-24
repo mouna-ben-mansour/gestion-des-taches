@@ -25,7 +25,7 @@ export class DefaultComponent implements OnInit{
 		private _userService: UserService,
 		private _taskService: TaskService
 	){
-		this.title = 'Homepage';
+		this.title = 'GESTION DES TACHES';
 		this.identity = this._userService.getIdentity();
 		this.token = this._userService.getToken();
 	}

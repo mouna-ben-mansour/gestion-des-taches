@@ -22,7 +22,7 @@ export class UserEditComponent implements OnInit {
 		private _route: ActivatedRoute,
 		private _router: Router
 	){
-		this.title = 'Edit the data';
+		this.title = 'Edit Profile';
 		this.identity = this._userService.getIdentity();
 		this.token = this._userService.getToken();
 	}

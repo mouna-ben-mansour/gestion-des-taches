@@ -1,6 +1,6 @@
-user_new:
-    path: /new
-    defaults: { _controller: "AppBundle:User:new" }
+user_register:
+    path: /register
+    defaults: { _controller: "AppBundle:User:register" }
     methods: POST
 
 user_edit:

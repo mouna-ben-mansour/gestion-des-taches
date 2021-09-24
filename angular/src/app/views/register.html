@@ -10,14 +10,14 @@
 		Registration error!
 	</div>
 
-	<form #registerForm="ngForm" (ngSubmit)="onSubmit(); registerForm.reset();" class="col-md-7">
+	<form #registerForm="ngForm" (ngSubmit)="onSubmit(); registerForm.reset();" class="col-md-7 no-padding">
 		<p>
-			<label>Nombe</label>
+			<label>Name</label>
 			<input type="text"  class="form-control" #name="ngModel" [(ngModel)]="user.name" name="name" required />
 			<span *ngIf="!name.valid && name.touched">Not valid name</span>
 		</p>
 		<p>
-			<label>Apellidos</label>
+			<label>Surname</label>
 			<input type="text"  class="form-control" #surname="ngModel" [(ngModel)]="user.surname" name="surname" required />
 			<span *ngIf="!surname.valid && surname.touched">Not valid surname</span>
 		</p>

@@ -64,30 +64,59 @@ class TaskController extends Controller{
 						$task = $em->getRepository('BackendBundle:Task')->findOneBy(array(
 								"id"=>$id
 						));
-
-						if(isset($identity->sub) && $identity->sub == $task->getUsers()->getId()){
+						$dqlRole = "SELECT t FROM BackendBundle:User t WHERE t.id= {$identity->sub} ";
+						$queryRole = $em->createQuery($dqlRole);
+						if($queryRole->getScalarResult()[0]['t_role'] == 'admin'){
+							if(isset($identity->sub)){
 							
-							$task->setTitle($title);
-							$task->setDescription($description);
-							$task->setStatus($status);
-							$task->setUpdatedAt($updatedAt);
-
-							$em->persist($task);
-							$em->flush();
-
-							$data = array(
-								"status" 	=> "success",
-								"code" 		=> 200,
-								"data" 		=> $task
-							);
+								$task->setTitle($title);
+								$task->setDescription($description);
+								$task->setStatus($status);
+								$task->setUpdatedAt($updatedAt);
+	
+								$em->persist($task);
+								$em->flush();
+	
+								$data = array(
+									"status" 	=> "success",
+									"code" 		=> 200,
+									"data" 		=> $task
+								);
+	
+							}else{
+								$data = array(
+									"status" 	=> "error",
+									"code" 		=> 400,
+									"msg" 		=> "Task updated error, you not owner"
+								);
+							}
 
 						}else{
-							$data = array(
-								"status" 	=> "error",
-								"code" 		=> 400,
-								"msg" 		=> "Task updated error, you not owner"
-							);
+							if(isset($identity->sub) && $identity->sub == $task->getUsers()->getId()){
+							
+								$task->setTitle($title);
+								$task->setDescription($description);
+								$task->setStatus($status);
+								$task->setUpdatedAt($updatedAt);
+	
+								$em->persist($task);
+								$em->flush();
+	
+								$data = array(
+									"status" 	=> "success",
+									"code" 		=> 200,
+									"data" 		=> $task
+								);
+	
+							}else{
+								$data = array(
+									"status" 	=> "error",
+									"code" 		=> 400,
+									"msg" 		=> "Task updated error, you not owner"
+								);
+							}
 						}
+					
 					}
 
 					
@@ -131,13 +160,18 @@ class TaskController extends Controller{
 			$identity = $jwt_auth->checkToken($token, true);
 			
 			$em = $this->getDoctrine()->getManager();
-
-			$dql = "SELECT t FROM BackendBundle:Task t WHERE t.users = {$identity->sub} ORDER BY t.id DESC";
-			$query = $em->createQuery($dql);
-
+			$dqlRole = "SELECT t FROM BackendBundle:User t WHERE t.id= {$identity->sub} ";
+			$queryRole = $em->createQuery($dqlRole);
+			if($queryRole->getScalarResult()[0]['t_role'] == 'admin'){
+				$dql = "SELECT t FROM BackendBundle:Task t  ORDER BY t.id DESC";
+				$query = $em->createQuery($dql);
+			}else{
+				$dql = "SELECT t FROM BackendBundle:Task t WHERE t.users = {$identity->sub} ORDER BY t.id DESC";
+				$query = $em->createQuery($dql);
+			}
 			$page = $request->query->getInt('page',1);
 			$paginator = $this->get('knp_paginator');
-			$items_per_page = 2;
+			$items_per_page = 5;
 
 			$pagination = $paginator->paginate($query, $page, $items_per_page);
 			$total_items_count = $pagination->getTotalItemCount();
@@ -148,7 +182,7 @@ class TaskController extends Controller{
 				'total_items_count'	=> $total_items_count,
 				'items_per_page' => $items_per_page,
 				'total_pages' => ceil($total_items_count / $items_per_page),
-				'data'=>$pagination
+				'data'=>$pagination,
 			);
 
 		}else{
@@ -176,21 +210,40 @@ class TaskController extends Controller{
 			$task = $em->getRepository('BackendBundle:Task')->findOneBy(array(
 				'id'=>$id
 			));
-
-			if($task && is_object($task) && $identity->sub == $task->getUsers()->getId()) {
-				$data = array(
-					'status'=>'success',
-					'code'	=>200,
-					'data'	=>$task,
-					'msg'	=>'Task detail'
-				);
+			$dqlRole = "SELECT t FROM BackendBundle:User t WHERE t.id= {$identity->sub} ";
+			$queryRole = $em->createQuery($dqlRole);
+			if($queryRole->getScalarResult()[0]['t_role'] == 'admin'){
+				if($task && is_object($task) ) {
+					$data = array(
+						'status'=>'success',
+						'code'	=>200,
+						'data'	=>$task,
+						'msg'	=>'Task detail'
+					);
+				}else{
+					$data = array(
+						'status'=>'error',
+						'code'	=>400,
+						'msg'	=>'Task not found'
+					);
+				}
 			}else{
-				$data = array(
-					'status'=>'error',
-					'code'	=>400,
-					'msg'	=>'Task not found'
-				);
+				if($task && is_object($task) && $identity->sub == $task->getUsers()->getId()) {
+					$data = array(
+						'status'=>'success',
+						'code'	=>200,
+						'data'	=>$task,
+						'msg'	=>'Task detail'
+					);
+				}else{
+					$data = array(
+						'status'=>'error',
+						'code'	=>400,
+						'msg'	=>'Task not found'
+					);
+				}
 			}
+			
 
 			
 		}else{

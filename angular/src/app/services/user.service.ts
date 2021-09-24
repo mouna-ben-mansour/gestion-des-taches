@@ -41,7 +41,7 @@ export class UserService{
 		const params = `json=${json}`;
 		const headers = new Headers({'Content-Type':'application/x-www-form-urlencoded'});
 
-		return this._http.post(`${this.url}/user/new`,params,{headers:headers})
+		return this._http.post(`${this.url}/user/register`,params,{headers:headers})
 						 .map(res=>res.json());
 
 	}

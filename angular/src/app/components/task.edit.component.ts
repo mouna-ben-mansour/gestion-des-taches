@@ -56,13 +56,13 @@ export class TaskEditComponent implements OnInit{
 					console.log(response);
 					if(response.status == 'success'){
 						
-						if(response.data.users.id == this.identity.sub){
+						//if(response.data.users.id == this.identity.sub){
 							this.task = response.data;
 							console.log(this.task);
 							this.loading = 'hide';
-						}else{
-							this._router.navigate(['/']);
-						}
+						//}else{
+						//	this._router.navigate(['/']);
+						//}
 
 					}else{
 						this._router.navigate(['/login']);
