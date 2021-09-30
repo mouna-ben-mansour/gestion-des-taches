@@ -65,6 +65,10 @@ export class UserService{
 			.map(res => res.json());
 
 	}
+	isAdmin(){
+		if (this.identity!=null)
+		return JSON.parse(localStorage.getItem('identity')).role == 'admin';
+		}
 }
 
 

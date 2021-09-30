@@ -59,6 +59,7 @@ export class TaskEditComponent implements OnInit{
 						//if(response.data.users.id == this.identity.sub){
 							this.task = response.data;
 							console.log(this.task);
+							console.log('fkjsdfi');
 							this.loading = 'hide';
 						//}else{
 						//	this._router.navigate(['/']);

@@ -57,6 +57,15 @@
           </a>
         </li>
         </ul>
+        <ul class="nav navbar-nav navbar-left" *ngIf="identity">
+          <li>
+            <a [routerLink]="['/user-new']" *ngIf="isAdmin">
+              <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+              New User
+            </a>
+          </li>
+
+        </ul>
     </div>
 
   </div>

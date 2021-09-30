@@ -50,7 +50,7 @@ export class DefaultComponent implements OnInit{
 						this.tasks = response.data;	
 						this.loading = 'hide';
 					
-						console.log('***',this.tasks);
+						console.log(this._userService.isAdmin());
 						//total pages
 						this.pages = [];
 						for(let i=0; i < response.total_pages; i++){

@@ -11,12 +11,14 @@ export class AppComponent {
   title = 'app';
   public identity;
   public token;
+  public isAdmin;
 
   constructor(
   	private _userService:UserService
   ){
   	this.identity = this._userService.getIdentity();
   	this.token = this._userService.getToken();
+    this.isAdmin = this._userService.isAdmin();
   }
 
   ngOnInit(){
