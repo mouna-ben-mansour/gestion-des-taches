@@ -78,7 +78,7 @@ export class UserService{
 			page=1;
 		}
 
-		console.log(` HALELUYA${this.url}/task/list?page=${page}`);
+		console.log(`${this.url}/task/list?page=${page}`);
 		return this._http.post(`${this.url}/user/list?page=${page}`,params, {headers:header})
 						 .map(res=>res.json());
 	}

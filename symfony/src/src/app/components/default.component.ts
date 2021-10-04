@@ -3,7 +3,6 @@ import {Router, ActivatedRoute, Params} from '@angular/router';
 import {UserService} from '../services/user.service';
 import {TaskService} from '../services/task.service';
 import {Task} from '../models/task'; 
-import { User } from '../models/user';
 
 @Component({
 	selector: 'default',
@@ -15,13 +14,10 @@ export class DefaultComponent implements OnInit{
 	public identity;
 	public token;
 	public tasks: Array<Task>;
-	public users: Array<User>;
 	public pages;
 	public pagePrev;
 	public pageNext;
 	public loading;
-	public isAdmin;
-	public TU;
 
 	constructor(
 		private _route	: ActivatedRoute,
@@ -32,8 +28,6 @@ export class DefaultComponent implements OnInit{
 		this.title = 'GESTION DES TACHES';
 		this.identity = this._userService.getIdentity();
 		this.token = this._userService.getToken();
-		this.isAdmin = _userService.isAdmin();
-		this.TU = true;
 	}
 
 	ngOnInit(){
@@ -115,14 +109,5 @@ export class DefaultComponent implements OnInit{
 				console.log(<any>error);
 			}
 		);
-	}
-	CM(){
-this.TU = !this.TU;
-console.log(this.TU);
-if (this.TU == true)
-this.title = 'GESTION DES TACHES';
-else
-this.title = 'GESTION UTILISATEURS';
-
 	}
 }

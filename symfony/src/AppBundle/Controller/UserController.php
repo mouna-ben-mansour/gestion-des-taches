@@ -13,6 +13,8 @@ use BackendBundle\Entity\User;
 
 class UserController extends Controller{
 
+	
+
 	public function registerAction(Request $request){
 		$helpers = $this->get(Helpers::class);
 
@@ -27,7 +29,9 @@ class UserController extends Controller{
 
 		if($json !=null){
 			$createdAt = new \Datetime("now");
-			$role = 'user';
+			$role='user';
+			if(isset($params->role))
+			$role = $params->role;
 
 			$email = (isset($params->email)) ? $params->email : null;
 			$name = (isset($params->name)) ? $params->name : null;
@@ -167,5 +171,48 @@ class UserController extends Controller{
 		}
 		return $helpers->json($data);
 		
+	}
+	public function usersAction(Request $request){
+		$helpers = $this->get(Helpers::class);
+		$jwt_auth = $this->get(JwtAuth::class);
+
+		$token = $request->get("authorization",null);
+		$authCheck = $jwt_auth->checkToken($token);
+
+		if($authCheck){
+			$identity = $jwt_auth->checkToken($token, true);
+			
+			$em = $this->getDoctrine()->getManager();
+			$dqlRole = "SELECT t FROM BackendBundle:User t WHERE t.id= {$identity->sub} ";
+			$queryRole = $em->createQuery($dqlRole);
+			if($queryRole->getScalarResult()[0]['t_role'] == 'admin'){
+				$dql = "SELECT U FROM BackendBundle:User U  ORDER BY U.id DESC";
+				$query = $em->createQuery($dql);
+			}
+			$page = $request->query->getInt('page',1);
+			$paginator = $this->get('knp_paginator');
+			$items_per_page = 5;
+
+			$pagination = $paginator->paginate($query, $page, $items_per_page);
+			$total_items_count = $pagination->getTotalItemCount();
+
+			$data = array(
+				'status'=>'success',
+				'code'	=>200,
+				'total_items_count'	=> $total_items_count,
+				'items_per_page' => $items_per_page,
+				'total_pages' => ceil($total_items_count / $items_per_page),
+				'data'=>$pagination,
+			);
+
+		}else{
+			$data = array(
+				'status'=>'error',
+				'code'	=>400,
+				'msg'	=>'Authorization not valid'
+			);
+		}
+
+		return $helpers->json($data);
 	}
 }
