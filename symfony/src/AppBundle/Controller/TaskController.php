@@ -350,7 +350,6 @@ class TaskController extends Controller{
 		$authCheck = $jwt_auth->checkToken($token);
 
 		if($authCheck){
-
 			$identity = $jwt_auth->checkToken($token, true);
 
 			$em = $this->getDoctrine()->getManager();
