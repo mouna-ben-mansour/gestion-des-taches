@@ -17,7 +17,7 @@
     <div class="collapse navbar-collapse" id="menu">
       <ul class="nav navbar-nav">
         <li>
-          <a [routerLink]="['/dashbord']" *ngIf="identity && identity.sub && identity && role" >
+          <a [routerLink]="['/']" *ngIf="identity && identity.sub">
             <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
             Dashbord
           </a>
@@ -45,21 +45,15 @@
       <ul class="nav navbar-nav navbar-left" *ngIf="isAdmin">
         <li>
           <a [routerLink]="['/user-new']" >
-            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
             New User/Admin
-          </a>
-        </li>
-        <li>
-          <a [routerLink]="['/user-list']" >
-            <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-            User List
           </a>
         </li>
         </ul>
 
       <ul class="nav navbar-nav navbar-right" *ngIf="identity && identity.sub">
       <li>
-          <a [routerLink]="['/profile-edit']" >
+          <a [routerLink]="['/user-edit']" >
             <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
             Config
           </a>

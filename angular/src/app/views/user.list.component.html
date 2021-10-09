@@ -1,0 +1,90 @@
+<div class="col-md-12" style="text-align: center;">
+  <div class="col-md-12" *ngIf="identity && identity.sub">
+
+
+    <div class="all-users">
+
+      <div class="loader" *ngIf="loading == 'show'">
+        <img src="assets/img/loader.gif" />
+      </div>
+
+      <table class="table table-hover table-stripped" id="users-list" *ngIf="users && users.length >= 1 && loading!='show'">
+
+        <tr>
+          <th>Name</th>
+          <th>Surname</th>
+          <th>email</th>
+          <th>Action</th>
+        </tr>
+        <tr *ngFor="let user of users" class="user-item">
+          <td>
+            <h4>
+              {{user.name}}
+            </h4>
+          </td>
+          <td>
+            <h4>
+              {{user.surname}}
+            </h4>
+          </td>
+          <td>
+            {{user.email}}
+          </td>
+          <td>
+            <a [routerLink]="['/user-edit',user.id]" class="btn btn-warning">Edit</a>
+            <a href="#deleteModal" role="button" class="btn btn-danger" data-toggle="modal">Delete</a>
+
+		<div id="deleteModal" class="modal fade">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title">Delete this user?</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+		        <p>Are you going to delete this user permanently?</p>
+		      </div>
+		      <div class="modal-footer">
+		        
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+		        <button (click)=deleteUser(user.id) data-dismiss="modal" type="button" class="btn btn-primary">Yes</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+          </td>
+        </tr>
+      </table>
+
+      <div class="col-md-12" *ngIf="loading == 'hide' && ( users.length == 0)">
+        <div class="clearfix"></div>
+        <div class="alert alert-warning">
+
+
+        </div>
+
+      </div>
+
+
+    </div>
+    <ul class="pagination" *ngIf="users && users.length >=1 && !searchString && !filter && !order">
+      <li>
+        <a [routerLink]="['/indexU', pagePrev]" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+      <li *ngFor="let page of pages">
+        <a [routerLink]="['/indexU',page+1]">{{page+1}}</a>
+      </li>
+      <li>
+        <a [routerLink]="['/indexU', pageNext]" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+
+    </ul>
+
+  </div>
+</div>

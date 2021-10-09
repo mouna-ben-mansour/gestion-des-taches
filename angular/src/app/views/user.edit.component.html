@@ -1,0 +1,51 @@
+<div class="col-md-12">
+	<div class="loader" *ngIf="loading === 'show'">
+		<img src="assets/img/loader.gif" />
+	</div>
+	<h3 *ngIf="loading!='show'">{{title}}</h3>
+
+
+	<div class="alert alert-success" *ngIf="status === 'success'">
+		Registrated succesfully
+		<a [routerLink]="['/login']">Login</a>
+	</div>
+
+	<div class="alert alert-danger" *ngIf="status === 'error'">
+		Registration error!
+	</div>
+
+	<form #updateForm="ngForm" (ngSubmit)="onSubmit();" class="col-md-7 no-padding" *ngIf="loading!='show'">
+		<p>
+			<label>Name</label>
+			<input type="text"  class="form-control" #name="ngModel" [(ngModel)]="user.name" name="name" required />
+			<span *ngIf="!name.valid && name.touched">Required.</span>
+		</p>
+		<p>
+			<label>Surname</label>
+			<input type="text"  class="form-control" #surname="ngModel" [(ngModel)]="user.surname" name="surname" required />
+			<span *ngIf="!surname.valid && surname.touched">Not valid surname</span>
+		</p>
+		<p>
+			<label>Role</label>
+			<select class="form-control" [(ngModel)]="Choice" name="role">
+        <option value="user" selected>User</option>
+        <option value="admin">Admin</option>
+      </select>
+			
+		</p>
+		<p>
+			<label>Email</label>
+			<input type="text"  class="form-control" #email="ngModel" [(ngModel)]="user.email" name="email" required />
+			<span *ngIf="!email.valid && email.touched">Not valid email</span>
+		</p>
+		<p>
+			<label>Password</label>
+			<input type="password"  class="form-control" #password="ngModel" [(ngModel)]="user.password" name="password"  />
+			<span *ngIf="!password.valid && password.touched">Not valid password</span>
+		</p>
+		<input type="submit"  class="btn btn-warning" value="{{title}}" [disabled]="!updateForm.form.valid"/>
+
+	</form>
+
+
+</div>

@@ -7,3 +7,18 @@ user_edit:
     path: /edit
     defaults: { _controller: "AppBundle:User:edit" }
     methods: POST
+
+user_list:
+    path: /list
+    defaults: { _controller: "AppBundle:User:users" }
+    methods: POST
+
+user_detail:
+    path: /detail/{id}
+    defaults: { _controller: "AppBundle:User:user", id:null }
+    methods: POST
+
+user_remove:
+    path: /remove/{id}
+    defaults: { _controller: "AppBundle:User:remove", id:null }
+    methods: POST

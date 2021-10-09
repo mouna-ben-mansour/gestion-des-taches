@@ -37,7 +37,7 @@ export class TaskService{
 			page=1;
 		}
 
-		console.log(header);
+		console.log(`${this.url}/task/list?page=${page}`);
 		return this._http.post(`${this.url}/task/list?page=${page}`,params, {headers:header})
 						 .map(res=>res.json());
 	}
@@ -80,12 +80,6 @@ export class TaskService{
 		const header = new Headers({'Content-Type':'application/x-www-form-urlencoded'});
 
 		return this._http.post(`${this.url}/task/remove/${id}`,params, {headers:header})
-						 .map(res=>res.json());
-	}
-	typeTask(){
-		
-		const header = new Headers({'Content-Type':'application/x-www-form-urlencoded'});
-		return this._http.get(`${this.url}/task/type`,{headers:header})
 						 .map(res=>res.json());
 	}
 }

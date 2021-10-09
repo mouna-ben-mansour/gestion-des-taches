@@ -11,17 +11,15 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login.component';
 import { RegisterComponent } from './components/register.component';
 import { DefaultComponent } from './components/default.component';
-import { ProfileEditComponent } from './components/profile.edit.component';
+import { UserEditComponent } from './components/user.edit.component';
 import { TaskNewComponent } from './components/task.new.component';
 import { TaskDetailComponent } from './components/task.detail.component';
 import { TaskEditComponent } from './components/task.edit.component';
 import { UserNewComponent } from './components/user.new.component';
-import { UserEditComponent } from './components/user.edit.component';
 
 //Pipe
 import { GenerateDatePipe } from './pipes/generate.date.pipe';
-import { UserListComponent } from './components/user.list.component';
-import { DashbordComponent } from './components/dashbord.component';
+
 
 
 
@@ -32,15 +30,13 @@ import { DashbordComponent } from './components/dashbord.component';
     LoginComponent,
     RegisterComponent,
     DefaultComponent,
-    ProfileEditComponent,
+    UserEditComponent,
     TaskNewComponent,
     TaskDetailComponent,
     TaskEditComponent,
     GenerateDatePipe,
     UserNewComponent,
-    UserListComponent,
-    UserEditComponent,
-    DashbordComponent
+
   ],
   imports: [
     BrowserModule,

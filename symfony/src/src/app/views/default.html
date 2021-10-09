@@ -1,10 +1,12 @@
 <div class="col-md-12" style="text-align: center;">
-	<h1>{{title}}</h1>
+	<h1 >{{title}}</h1>
+
 	<div *ngIf="!identity || identity == null">
 		<img id="logo-home" src="./assets/img/home-taches.png" height="400px">
 	</div>
 
 	<div class="col-md-12" *ngIf="identity && identity.sub">
+		<!-- searh here -->
 
 		<form class="col-md-12" role="search">
 			<div class="form-group col-md-6">
@@ -41,7 +43,7 @@
 				<img src="assets/img/loader.gif" />
 			</div>
 
-			<table class="table table-hover table-stripped" id="tasks-list" *ngIf="tasks && tasks.length >= 1 && loading!='show'">
+			<table class="table table-hover table-stripped" id="tasks-list" *ngIf="tasks && tasks.length >= 1">
 
 				<tr>
 					<th>Status</th>
@@ -98,6 +100,5 @@
 			</ul>
 		</div>
 	</div>
-    
 </div>
 

@@ -53,7 +53,7 @@ export class TaskEditComponent implements OnInit{
 
 			this._taskService.getTask(this.token, id).subscribe(
 				response => {
-					
+					console.log(response);
 					if(response.status == 'success'){
 						
 						//if(response.data.users.id == this.identity.sub){
