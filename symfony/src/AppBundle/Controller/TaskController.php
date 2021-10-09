@@ -386,4 +386,25 @@ class TaskController extends Controller{
 
 		return $helpers->json($data);
 	}
+	public function typeAction(Request $request){
+		$helpers = $this->get(Helpers::class);
+
+        $em = $this->getDoctrine()->getManager();
+		$new = count($em->getRepository('BackendBundle:Task')->findBy(array(
+			'status'=>'new'
+		)));
+		$todo = count($em->getRepository('BackendBundle:Task')->findBy(array(
+			'status'=>'todo'
+		)));
+	    $finished = count($em->getRepository('BackendBundle:Task')->findBy(array(
+			'status'=>'finished'
+		)));
+		$data = array(
+			'new'=>$new,
+			'todo'	=>$todo,
+			'finished'	=>$finished
+		);
+
+	return $helpers->json($data);
+	}
 }

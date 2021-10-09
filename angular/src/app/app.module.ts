@@ -18,6 +18,7 @@ import { TaskEditComponent } from './components/task.edit.component';
 
 //Pipe
 import { GenerateDatePipe } from './pipes/generate.date.pipe';
+import { DashbordComponent } from './components/dashbord.component';
 
 
 
@@ -31,7 +32,8 @@ import { GenerateDatePipe } from './pipes/generate.date.pipe';
     TaskNewComponent,
     TaskDetailComponent,
     TaskEditComponent,
-    GenerateDatePipe
+    GenerateDatePipe,
+    DashbordComponent
   ],
   imports: [
     BrowserModule,

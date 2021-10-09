@@ -27,3 +27,8 @@ task_remove:
     path: /remove/{id}
     defaults: { _controller: "AppBundle:Task:remove", id:null }
     methods: POST
+
+type_remove:
+    path: /type
+    defaults: { _controller: "AppBundle:Task:type", type:null }
+    methods: GET
