@@ -1,0 +1,27 @@
+#chart1,#chart2,#chart3{
+    height:50px;
+    width:240px;
+   
+    
+    
+}
+
+table {
+    margin-left: auto;
+    margin-right: auto;
+    border-collapse: separate;
+    border-spacing: 5px;
+    
+  
+  }
+  tr{
+    background-color:#F3F3F3;
+  }
+  #chart{
+    height:150px;
+    width:400px;
+    margin-left: auto;
+    margin-right: auto;
+    
+    
+}

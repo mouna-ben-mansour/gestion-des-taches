@@ -31,6 +31,7 @@ export class DefaultComponent implements OnInit{
 	){
 		this.title = 'GESTION DES TACHES';
 		this.identity = this._userService.getIdentity();
+		
 		this.token = this._userService.getToken();
 		this.isAdmin = _userService.isAdmin();
 		this.TU = true;

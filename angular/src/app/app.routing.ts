@@ -11,6 +11,7 @@ import { TaskEditComponent } from './components/task.edit.component';
 import { UserNewComponent } from './components/user.new.component';
 import { UserListComponent } from './components/user.list.component';
 import { UserEditComponent } from './components/user.edit.component';
+import { DashbordComponent } from './components/dashbord.component';
 
 const appRoutes: Routes = [
 	{path:'', component			: DefaultComponent},
@@ -30,6 +31,7 @@ const appRoutes: Routes = [
 	{path:'index/:page/task/:id',component	: TaskDetailComponent},
 	{path:'task-edit/:id',component	: TaskEditComponent},
 	{path:'index/:page/task-edit/:id',component	: TaskEditComponent},
+	{path:'dashbord',component :DashbordComponent},
 	{path:'**',component		: LoginComponent}
 ];
 

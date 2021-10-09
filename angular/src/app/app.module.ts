@@ -21,8 +21,7 @@ import { UserEditComponent } from './components/user.edit.component';
 //Pipe
 import { GenerateDatePipe } from './pipes/generate.date.pipe';
 import { UserListComponent } from './components/user.list.component';
-
-
+import { DashbordComponent } from './components/dashbord.component';
 
 
 
@@ -41,7 +40,7 @@ import { UserListComponent } from './components/user.list.component';
     UserNewComponent,
     UserListComponent,
     UserEditComponent,
-
+    DashbordComponent
   ],
   imports: [
     BrowserModule,
