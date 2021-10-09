@@ -1,20 +1,17 @@
-import {Component, OnInit} from '@angular/core';
-import {Router, ActivatedRoute, Params} from '@angular/router';
-import {UserService} from '../services/user.service';
-import {TaskService} from '../services/task.service';
-import {Task} from '../models/task'; 
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { User } from '../models/user';
+import { UserService } from '../services/user.service';
 
 @Component({
-	selector: 'default',
-	templateUrl: '../views/default.html',
-	providers: [UserService, TaskService]
+  selector: 'user.list',
+  templateUrl: '../views/user.list.component.html'
 })
-export class DefaultComponent implements OnInit{
-	public title: string;
+export class UserListComponent implements OnInit {
+
+  public title: string;
 	public identity;
 	public token;
-	public tasks: Array<Task>;
 	public users: Array<User>;
 	public pages;
 	public pagePrev;
@@ -22,26 +19,26 @@ export class DefaultComponent implements OnInit{
 	public loading;
 	public isAdmin;
 	public TU;
+	public user:User;
+	public status;
 
 	constructor(
 		private _route	: ActivatedRoute,
 		private _router	: Router,
 		private _userService: UserService,
-		private _taskService: TaskService
 	){
-		this.title = 'GESTION DES TACHES';
+		this.title = 'GESTION DES UTILISATEURS';
 		this.identity = this._userService.getIdentity();
 		this.token = this._userService.getToken();
 		this.isAdmin = _userService.isAdmin();
 		this.TU = true;
 	}
 
-	ngOnInit(){
-		console.log('Default component created!');
-		this.getAllTask();
-	}
+  ngOnInit() {
+    this.getAllUsers();
+  }
 
-	getAllTask(){
+  getAllUsers(){
 		this._route.params.forEach((params: Params) => {
 			let page = +params['page'];
 
@@ -50,13 +47,13 @@ export class DefaultComponent implements OnInit{
 			}
 
 			this.loading = 'show';
-			this._taskService.getTasks(this.token, page).subscribe(
+			this._userService.getUsers(this.token, page).subscribe(
 				response => {
 					if(response.status == 'success'){
-						this.tasks = response.data;	
+						this.users = response.data;	
 						this.loading = 'hide';
 					
-						console.log('***',this.tasks);
+						console.log('***',this.users);
 						//total pages
 						this.pages = [];
 						for(let i=0; i < response.total_pages; i++){
@@ -83,38 +80,27 @@ export class DefaultComponent implements OnInit{
 			);
 		});
 	}
+
+	deleteUser(id){
+		this._userService.deleteUser(this.token, id).subscribe(
+			response => {
+				if(response.status == 'success'){
+					window.location.reload();
+				}else{
+					alert('User was not deleted');
+				}
+			},
+			error =>{
+				console.log(<any>error);
+			}
+		);
+	}
 	
+
 
 
 	public filter = 0;
 	public order = 0;
 	public searchString;
 
-	search(){
-		console.log(this.filter);
-		console.log(this.order);
-		console.log(this.searchString);
-
-		this.loading = 'show';
-
-		if(!this.searchString || this.searchString.trim().length == 0){
-			this.searchString = null;
-		}
-
-		this._taskService.search(this.token, this.searchString, this.filter, this.order).subscribe(
-			response => {
-
-				console.log(response.status);
-				if(response.status == 'success'){
-					this.tasks = response.data;
-					this.loading = 'hide';
-				}else{
-					this._router.navigate(['/index'])
-				}
-			},
-			error=> {
-				console.log(<any>error);
-			}
-		);
-	}
 }

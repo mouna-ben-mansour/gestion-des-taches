@@ -14,7 +14,7 @@ export class UserNewComponent implements OnInit {
 	public status;
 	public identity;
 	public token;
-	public Choice: string;
+	public Choice = 'user';
 
 
   constructor(
@@ -29,6 +29,8 @@ export class UserNewComponent implements OnInit {
   ngOnInit(){
 		if(this.identity == null){
 			this._router.navigate(['/login']);
+			this.Choice = 'user';
+			
 		}
     else{
       this.user = new User(1,'','','','','');
@@ -50,7 +52,8 @@ export class UserNewComponent implements OnInit {
 				if(this.status != 'success'){
 					this.status = 'error';
 				}else{
-					localStorage.setItem('identity',JSON.stringify(this.user));
+					this._router.navigate(['/user-list']);
+
 				}
 			},
 			error => {

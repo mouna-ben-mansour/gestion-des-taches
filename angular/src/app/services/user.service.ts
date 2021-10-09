@@ -46,22 +46,32 @@ export class UserService{
 
 	}
 
+
+
 	update_user(user_to_update){	
 		const json 	= JSON.stringify(user_to_update);
 		const token = this.getToken();
 		const params = `json=${json}&authorization=${token}`;
-		
 		const headers = new Headers({'Content-Type':'application/x-www-form-urlencoded'});
 
 		return this._http.post(`${this.url}/user/edit`, params, {headers:headers})
 						 .map(res=>res.json());
 	}
+	
 
 	getTask(token,id){
 		const params  = `authorization=${token}`;
 		const headers = new Headers({'Content-Type':'application/x-www-form-urlencoded'});
 
 		return this._http.post(`${this.url}/task/detail/${id}`, params, {headers: headers})
+			.map(res => res.json());
+
+	}
+	getUser(token,id){
+		const params  = `authorization=${token}`;
+		const headers = new Headers({'Content-Type':'application/x-www-form-urlencoded'});
+
+		return this._http.post(`${this.url}/user/detail/${id}`, params, {headers: headers})
 			.map(res => res.json());
 
 	}
@@ -77,9 +87,15 @@ export class UserService{
 		if(page == null){
 			page=1;
 		}
-
-		console.log(` HALELUYA${this.url}/task/list?page=${page}`);
 		return this._http.post(`${this.url}/user/list?page=${page}`,params, {headers:header})
+						 .map(res=>res.json());
+	}
+
+	deleteUser(token, id){
+		const params = `authorization=${token}`;
+		const header = new Headers({'Content-Type':'application/x-www-form-urlencoded'});
+
+		return this._http.post(`${this.url}/user/remove/${id}`,params, {headers:header})
 						 .map(res=>res.json());
 	}
 }

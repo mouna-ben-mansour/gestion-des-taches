@@ -45,15 +45,21 @@
       <ul class="nav navbar-nav navbar-left" *ngIf="isAdmin">
         <li>
           <a [routerLink]="['/user-new']" >
-            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
             New User/Admin
+          </a>
+        </li>
+        <li>
+          <a [routerLink]="['/user-list']" >
+            <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+            User List
           </a>
         </li>
         </ul>
 
       <ul class="nav navbar-nav navbar-right" *ngIf="identity && identity.sub">
       <li>
-          <a [routerLink]="['/user-edit']" >
+          <a [routerLink]="['/profile-edit']" >
             <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
             Config
           </a>

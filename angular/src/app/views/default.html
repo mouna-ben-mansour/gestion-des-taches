@@ -1,13 +1,10 @@
 <div class="col-md-12" style="text-align: center;">
-	<h1 *ngIf="!isAdmin; else elseBlock">{{title}}</h1>
-	<ng-template #elseBlock><h1><a role="button" (click)='CM()'>{{title}}</a></h1></ng-template>
-
+	<h1>{{title}}</h1>
 	<div *ngIf="!identity || identity == null">
 		<img id="logo-home" src="./assets/img/home-taches.png" height="400px">
 	</div>
 
-	<div class="col-md-12" *ngIf="identity && identity.sub && TU">
-		<!-- searh here -->
+	<div class="col-md-12" *ngIf="identity && identity.sub">
 
 		<form class="col-md-12" role="search">
 			<div class="form-group col-md-6">
@@ -44,7 +41,7 @@
 				<img src="assets/img/loader.gif" />
 			</div>
 
-			<table class="table table-hover table-stripped" id="tasks-list" *ngIf="tasks && tasks.length >= 1">
+			<table class="table table-hover table-stripped" id="tasks-list" *ngIf="tasks && tasks.length >= 1 && loading!='show'">
 
 				<tr>
 					<th>Status</th>
@@ -101,5 +98,6 @@
 			</ul>
 		</div>
 	</div>
+    
 </div>
 

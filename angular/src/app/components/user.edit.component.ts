@@ -1,20 +1,21 @@
-import {Component, OnInit} from '@angular/core';
-import {Router, ActivatedRoute, Params} from '@angular/router';
-import {UserService} from '../services/user.service';
-import {User} from '../models/user';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router, Params } from '@angular/router';
+import { User } from '../models/user';
+import { UserService } from '../services/user.service';
 
 @Component({
-	selector: 'user-edit',
-	templateUrl: '../views/user.edit.html',
-	providers: [UserService]
+  selector: 'user.edit',
+  templateUrl: '../views/user.edit.component.html',
 })
-
 export class UserEditComponent implements OnInit {
-	public title: string;
-	public user: User;
+
+  public title: string;
+	public user;
 	public status;
-	public identity;
 	public token;
+	public loading;
+	public Choice;
+
 
 
 	constructor(
@@ -23,28 +24,43 @@ export class UserEditComponent implements OnInit {
 		private _router: Router
 	){
 		this.title = 'Edit Profile';
-		this.identity = this._userService.getIdentity();
 		this.token = this._userService.getToken();
 	}
 
 	ngOnInit(){
-		if(this.identity == null){
-			this._router.navigate(['/login']);
-		}else{
-			this.user = new User(
-				this.identity.sub,
-				this.identity.role,
-				this.identity.name,
-				this.identity.surname,
-				this.identity.email,
-				this.identity.password
+this.getUser();
+		
+	}
+
+	
+	getUser(){
+		this.loading = 'show';
+		this._route.params.forEach((params: Params) => {
+			let id = +params['id'];
+
+			this._userService.getUser(this.token, id).subscribe(
+				response => {
+					console.log(response);
+					if(response.status == 'success'){
+						    this.user = response.data;
+							this.loading = 'hide';
+							this.Choice=this.user.role;
+
+
+					}else{
+						this._router.navigate(['/login']);
+					}
+				},
+				error => {
+					console.log(<any>error);
+				}
 			);
-		}
+		});
 	}
 
 	onSubmit(){
+		this.user.role = this.Choice;
 
-		
 		this._userService.update_user(this.user).subscribe(
 			
 			response=>{
@@ -55,7 +71,7 @@ export class UserEditComponent implements OnInit {
 				if(this.status != 'success'){
 					this.status = 'error';
 				}else{
-					localStorage.setItem('identity',JSON.stringify(this.user));
+					this._router.navigate(['/user-list']);
 				}
 			},
 			error => {
@@ -63,4 +79,5 @@ export class UserEditComponent implements OnInit {
 			}
 		);
 	}
+
 }

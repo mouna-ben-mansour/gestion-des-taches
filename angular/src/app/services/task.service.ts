@@ -37,7 +37,7 @@ export class TaskService{
 			page=1;
 		}
 
-		console.log(`${this.url}/task/list?page=${page}`);
+		console.log(header);
 		return this._http.post(`${this.url}/task/list?page=${page}`,params, {headers:header})
 						 .map(res=>res.json());
 	}

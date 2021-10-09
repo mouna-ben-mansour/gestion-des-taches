@@ -1,5 +1,8 @@
 <div class="col-md-12">
-	<h3>{{title}}</h3>
+	<div class="loader" *ngIf="loading === 'show'">
+		<img src="assets/img/loader.gif" />
+	</div>
+	<h3 *ngIf="loading!='show'">{{title}}</h3>
 
 
 	<div class="alert alert-success" *ngIf="status === 'success'">
@@ -11,7 +14,7 @@
 		Registration error!
 	</div>
 
-	<form #updateForm="ngForm" (ngSubmit)="onSubmit();" class="col-md-7 no-padding">
+	<form #updateForm="ngForm" (ngSubmit)="onSubmit();" class="col-md-7 no-padding" *ngIf="loading!='show'">
 		<p>
 			<label>Name</label>
 			<input type="text"  class="form-control" #name="ngModel" [(ngModel)]="user.name" name="name" required />
@@ -22,7 +25,7 @@
 			<input type="text"  class="form-control" #surname="ngModel" [(ngModel)]="user.surname" name="surname" required />
 			<span *ngIf="!surname.valid && surname.touched">Not valid surname</span>
 		</p>
-    <p>
+		<p>
 			<label>Role</label>
 			<select class="form-control" [(ngModel)]="Choice" name="role">
         <option value="user" selected>User</option>
