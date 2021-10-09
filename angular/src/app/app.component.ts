@@ -11,6 +11,7 @@ export class AppComponent {
   title = 'app';
   public identity;
   public token;
+  public role;
 
   constructor(
   	private _userService:UserService
@@ -21,5 +22,7 @@ export class AppComponent {
 
   ngOnInit(){
   	console.log("app.component loaded");
+    this.role=(this.identity.role=='admin');
   }
+  
 }

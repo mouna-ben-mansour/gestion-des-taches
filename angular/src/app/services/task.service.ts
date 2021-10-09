@@ -82,4 +82,10 @@ export class TaskService{
 		return this._http.post(`${this.url}/task/remove/${id}`,params, {headers:header})
 						 .map(res=>res.json());
 	}
+	typeTask(){
+		
+		const header = new Headers({'Content-Type':'application/x-www-form-urlencoded'});
+		return this._http.get(`${this.url}/task/type`,{headers:header})
+						 .map(res=>res.json());
+	}
 }
