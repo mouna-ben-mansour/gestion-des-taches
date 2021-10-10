@@ -292,11 +292,15 @@ class TaskController extends Controller{
 			}
 
 			//Search
-			if($search != null){
+			if($search != null && $identity->role=='user'){
 				$dql = "SELECT t FROM BackendBundle:Task t"
 						." WHERE t.users = $identity->sub AND "
 						."(t.title LIKE :search OR t.description LIKE :search) ";
-			}else{
+			}else if($search != null && $identity->role=='admin'){
+				$dql = "SELECT t FROM BackendBundle:Task t"
+						." WHERE (t.title LIKE :search OR t.description LIKE :search)";	
+			}
+			else{
 				$dql = "SELECT t FROM BackendBundle:Task t "
 						." WHERE t.users = $identity->sub";
 			}
@@ -357,7 +361,7 @@ class TaskController extends Controller{
 				'id'=>$id
 			));
 
-			if($task && is_object($task) && $identity->sub == $task->getUsers()->getId()) {
+			if($task && is_object($task) && $identity->sub == $task->getUsers()->getId() || $identity->role =='admin' ) {
 				
 				$em->remove($task);//delete the table register
 				$em->flush();
